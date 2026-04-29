@@ -41,7 +41,7 @@ exiftool -all= -overwrite_original photos/*
 Edit the `<option>` list inside `<select id="city-select">` in `index.html`. Each option's value is `lat,lon`:
 
 ```html
-<option value="37.34,-121.89">San Jose</option>
+<option value="37.77,-122.42">San Francisco</option>
 ```
 
 The "Other..." option lets users search any city at runtime via Open-Meteo's geocoding API.
