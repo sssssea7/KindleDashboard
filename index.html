@@ -45,6 +45,9 @@
     font-weight: bold;
     letter-spacing: 2px;
     text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
   }
   #date-display {
     font-size: 22px;
@@ -229,7 +232,7 @@
 <!-- Row 1: Time+Location | Weather -->
 <div id="row1">
   <div id="row1-left">
-    <div id="clock">--:--</div>
+    <div id="clock" onclick="toggleClockFormat()" title="Tap to toggle 12h / 24h">--:--</div>
     <div id="date-display">Loading...</div>
     <div id="location-bar">
       <select id="city-select" onchange="onCitySelect()">
@@ -368,15 +371,35 @@ function getCityNow() {
 // ============================================================
 // CLOCK
 // ============================================================
-function updateClock() {
-  var now = getCityNow();
-  var h = now.getHours();
-  var m = now.getMinutes();
+var clockFormat = "12h"; // "12h" or "24h"
+try {
+  var savedFormat = localStorage.getItem("kindle_clock_format");
+  if (savedFormat === "24h" || savedFormat === "12h") clockFormat = savedFormat;
+} catch(e) {}
+
+function formatTime(date) {
+  var h = date.getHours();
+  var m = date.getMinutes();
+  var mStr = m < 10 ? "0" + m : m;
+  if (clockFormat === "24h") {
+    var hStr = h < 10 ? "0" + h : h;
+    return hStr + ":" + mStr;
+  }
   var ampm = h >= 12 ? "PM" : "AM";
   var h12 = h % 12 || 12;
-  var mStr = m < 10 ? "0" + m : m;
+  return h12 + ":" + mStr + " " + ampm;
+}
 
-  document.getElementById("clock").textContent = h12 + ":" + mStr + " " + ampm;
+function toggleClockFormat() {
+  clockFormat = (clockFormat === "12h") ? "24h" : "12h";
+  try { localStorage.setItem("kindle_clock_format", clockFormat); } catch(e) {}
+  updateClock();
+  updateStatus();
+}
+
+function updateClock() {
+  var now = getCityNow();
+  document.getElementById("clock").textContent = formatTime(now);
 
   var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   var months = ["January","February","March","April","May","June",
@@ -678,13 +701,7 @@ function rotatePhoto() {
 // STATUS
 // ============================================================
 function updateStatus() {
-  var now = getCityNow();
-  var h = now.getHours();
-  var m = now.getMinutes();
-  var ampm = h >= 12 ? "PM" : "AM";
-  var h12 = h % 12 || 12;
-  var mStr = m < 10 ? "0" + m : m;
-  document.getElementById("status-bar").textContent = "Last updated: " + h12 + ":" + mStr + " " + ampm;
+  document.getElementById("status-bar").textContent = "Last updated: " + formatTime(getCityNow());
 }
 
 // ============================================================
