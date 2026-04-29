@@ -636,7 +636,8 @@ function searchCity() {
           var name = r.name + (r.admin1 ? ", " + r.admin1 : "") + (r.country ? ", " + r.country : "");
           saveLocation(r.latitude, r.longitude, name);
           document.getElementById("location-name").textContent = name;
-          document.getElementById("custom-location").style.display = "none";
+          var input = document.getElementById("custom-city");
+          input.select();
           fetchWeather(r.latitude, r.longitude);
         } else {
           document.getElementById("weather-desc").textContent = "City not found";
