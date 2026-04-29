@@ -7,7 +7,7 @@ A single-page dashboard designed for the Kindle's Experimental Browser. Shows th
 ## Features
 
 - **Clock** — tap to toggle between 12h (`9:42 PM`) and 24h (`21:42`).
-- **Weather** — current "feels like" temperature and conditions for the selected city. Tap the temperature to toggle °F / °C.
+- **Weather** — current temperature and conditions for the selected city. Tap the temperature to toggle °F / °C.
 - **5-day forecast** — high/low and conditions for the next five days.
 - **Calendar** — current month with today highlighted.
 - **Photos** — rotates through images in `photos/` every 10 minutes. Tap a photo to advance manually (the timer resets).

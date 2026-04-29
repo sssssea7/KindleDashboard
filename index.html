@@ -487,8 +487,8 @@ function toggleTempUnit() {
 function fetchWeather(lat, lon) {
   var url = "https://api.open-meteo.com/v1/forecast?" +
     "latitude=" + lat + "&longitude=" + lon +
-    "&current=apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m" +
-    "&daily=weather_code,apparent_temperature_max,apparent_temperature_min" +
+    "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m" +
+    "&daily=weather_code,temperature_2m_max,temperature_2m_min" +
     "&wind_speed_unit=mph" +
     "&timezone=auto&forecast_days=5";
 
@@ -526,7 +526,7 @@ function displayWeather(data) {
   var wmo = getWMO(current.weather_code);
 
   document.getElementById("weather-icon").textContent = "";
-  document.getElementById("weather-temp").textContent = formatTemp(current.apparent_temperature, true);
+  document.getElementById("weather-temp").textContent = formatTemp(current.temperature_2m, true);
   document.getElementById("weather-desc").textContent = wmo.desc;
   document.getElementById("w-humidity").textContent = "Humidity: " + current.relative_humidity_2m + "%";
   document.getElementById("w-wind").textContent = "Wind: " + Math.round(current.wind_speed_10m) + " mph";
@@ -534,7 +534,7 @@ function displayWeather(data) {
   var daily = data.daily;
   if (daily) {
     document.getElementById("w-high-low").textContent =
-      "H: " + formatTemp(daily.apparent_temperature_max[0]) + " / L: " + formatTemp(daily.apparent_temperature_min[0]);
+      "H: " + formatTemp(daily.temperature_2m_max[0]) + " / L: " + formatTemp(daily.temperature_2m_min[0]);
 
     // 5-day forecast — parse date manually for Kindle compatibility
     var forecastHtml = "";
@@ -549,8 +549,8 @@ function displayWeather(data) {
       forecastHtml += '<div class="forecast-day">' +
         '<div class="day-name">' + dayName + '</div>' +
         '<div class="day-desc">' + fwmo.desc + '</div>' +
-        '<div class="day-temp">' + formatTemp(daily.apparent_temperature_max[i]) + '/' +
-        formatTemp(daily.apparent_temperature_min[i]) + '</div></div>';
+        '<div class="day-temp">' + formatTemp(daily.temperature_2m_max[i]) + '/' +
+        formatTemp(daily.temperature_2m_min[i]) + '</div></div>';
     }
     document.getElementById("forecast-row").innerHTML = forecastHtml;
   }
