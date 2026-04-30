@@ -61,7 +61,20 @@ A local server (rather than `file://`) is required so the browser can fetch `pho
 
 1. On the Kindle, open the **Experimental Browser** (Menu → Experimental Browser, or simply "Web" on newer models).
 2. Navigate to the deployed URL and bookmark it.
-3. Disable screen sleep if you want a permanent dashboard.
+
+### Keeping the screen always on
+
+By default the Kindle sleeps after ~10 minutes of inactivity. To prevent this, type `~ds` in the home screen's search bar and submit. The Kindle will stop auto-sleeping; restart the device to re-enable sleep. Availability varies by model and firmware, but it works on many older Kindles.
+
+### Will this damage the screen?
+
+E-ink is a good fit for permanent display:
+
+- **No burn-in.** Unlike OLED, e-ink particles are physically moved between refreshes, so static content doesn't degrade pixels. A static image is actually easier on e-ink than constant change.
+- **Mild ghosting.** Repeated partial refreshes can leave faint outlines; the dashboard's slow refresh cadence (clock every 30s, weather every 30 min) keeps this minimal.
+- **Frontlight wear.** Frontlight LEDs eventually dim with continuous use, but they're rated for tens of thousands of hours.
+
+The real concern is the battery, not the screen. Keeping the Kindle plugged in 24/7 will gradually degrade the lithium-ion cell (capacity loss, possible swelling). Common workarounds: power via USB with the battery disconnected, or accept the battery as a sacrificial part. The screen will likely outlast the battery.
 
 ## APIs used
 
